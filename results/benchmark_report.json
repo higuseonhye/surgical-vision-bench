@@ -1,0 +1,288 @@
+{
+  "suite": "surgical_bench",
+  "version": "0.1.0",
+  "schema_version": 1,
+  "synthetic": true,
+  "generated_at": "2026-10-13T16:04:13+09:00",
+  "argv": [
+    "C:\\Users\\Lenovo\\Projects\\surgical-vision-bench\\surgical_bench\\runner.py",
+    "--synthetic",
+    "--output",
+    "results/benchmark_report.json"
+  ],
+  "environment": {
+    "python": "3.14.3",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "processor": "Intel64 Family 6 Model 158 Stepping 10, GenuineIntel",
+    "cpu_count": 12,
+    "numpy": "2.4.3",
+    "torch": "2.13.0+cpu",
+    "torch_num_threads": 6,
+    "device": "cpu",
+    "cuda_available": false
+  },
+  "io": {
+    "image_height": 8192,
+    "image_width": 8192,
+    "channels": 3,
+    "patch_size": 256,
+    "num_patches": 64,
+    "frame_bytes": 201326592,
+    "frame_write_s": 1.639202899999873,
+    "access_note": "Warm-cache access-path comparison of unbuffered disk reads, memory-map slices, and in-memory slices. Not a cold-disk measurement.",
+    "modes": [
+      {
+        "io_latency_ms": 1.4568671874855,
+        "p50_ms": 1.3898499998958869,
+        "p95_ms": 1.7762549999019934,
+        "p99_ms": 2.156126000015773,
+        "throughput_patches_per_sec": 686.4043672546184,
+        "mode": "disk",
+        "num_patches": 64,
+        "patch_size": 256,
+        "elapsed_s": 0.10510450000015226,
+        "throughput_mb_per_sec": 128.70081886024093
+      },
+      {
+        "io_latency_ms": 0.08242656251056246,
+        "p50_ms": 0.020850000055361306,
+        "p95_ms": 0.41239500002347995,
+        "p99_ms": 0.4169369999317496,
+        "throughput_patches_per_sec": 12132.011448031162,
+        "mode": "memmap",
+        "num_patches": 64,
+        "patch_size": 256,
+        "elapsed_s": 0.008931600000096296,
+        "throughput_mb_per_sec": 2274.752146505843
+      },
+      {
+        "io_latency_ms": 0.03415624999192346,
+        "p50_ms": 0.03255000001445296,
+        "p95_ms": 0.0601499998992949,
+        "p99_ms": 0.07719400004134512,
+        "throughput_patches_per_sec": 29277.21867114975,
+        "mode": "ram",
+        "num_patches": 64,
+        "patch_size": 256,
+        "elapsed_s": 0.2027599000000464,
+        "throughput_mb_per_sec": 5489.478500840578
+      }
+    ]
+  },
+  "serving": {
+    "backend": "pytorch_triton_dynamic_batch_mock",
+    "backend_note": "Local PyTorch model with a single serving thread, a max batch size, and a short queue delay. NVIDIA Triton and TensorRT were not executed.",
+    "device": "cpu",
+    "input_shape": [
+      3,
+      128,
+      128
+    ],
+    "num_requests": 64,
+    "target_sla_ms": 30.0,
+    "sla_rule": "p99_ms < target_sla_ms",
+    "load_model": "closed_loop_clients",
+    "configurations_meeting_sla": 5,
+    "configuration_count": 6,
+    "model": {
+      "name": "TinySurgicalNet",
+      "num_classes": 4,
+      "parameters": 5220,
+      "onnx_compatible_ops": [
+        "Conv",
+        "Relu",
+        "MaxPool",
+        "AdaptiveAvgPool",
+        "Dropout",
+        "Gemm"
+      ]
+    },
+    "configurations": [
+      {
+        "p50_ms": 1.9234500000493426,
+        "p95_ms": 2.626575000147113,
+        "p99_ms": 9.725095000026144,
+        "mean_ms": 2.2112703124967936,
+        "min_ms": 1.4509000000089145,
+        "max_ms": 13.305700000046272,
+        "mode": "sequential",
+        "concurrency": 1,
+        "max_batch_size": 1,
+        "max_queue_delay_ms": 0.0,
+        "num_requests": 64,
+        "mean_batch_size": 1.0,
+        "mean_compute_ms": 2.2112703124967936,
+        "throughput_requests_per_sec": 452.2287457795597,
+        "target_sla_ms": 30.0,
+        "sla_met": true
+      },
+      {
+        "p50_ms": 11.029249999978674,
+        "p95_ms": 13.906644999997297,
+        "p99_ms": 14.57093499996972,
+        "mean_ms": 11.264634375010019,
+        "min_ms": 2.7147999999215244,
+        "max_ms": 14.851600000156395,
+        "mode": "queued",
+        "concurrency": 4,
+        "max_batch_size": 1,
+        "max_queue_delay_ms": 0.0,
+        "num_requests": 64,
+        "mean_batch_size": 1.0,
+        "mean_compute_ms": 2.717039062510196,
+        "throughput_requests_per_sec": 341.28400641845894,
+        "target_sla_ms": 30.0,
+        "sla_met": true
+      },
+      {
+        "p50_ms": 24.75749999996424,
+        "p95_ms": 32.48699999994641,
+        "p99_ms": 33.329060000019126,
+        "mean_ms": 24.211923437508887,
+        "min_ms": 3.6079999999856227,
+        "max_ms": 33.66170000003876,
+        "mode": "queued",
+        "concurrency": 8,
+        "max_batch_size": 1,
+        "max_queue_delay_ms": 0.0,
+        "num_requests": 64,
+        "mean_batch_size": 1.0,
+        "mean_compute_ms": 3.025470312493894,
+        "throughput_requests_per_sec": 308.5763492623659,
+        "target_sla_ms": 30.0,
+        "sla_met": false
+      },
+      {
+        "p50_ms": 14.798299999938536,
+        "p95_ms": 16.47002499998962,
+        "p99_ms": 20.136020999916568,
+        "mean_ms": 13.175835937484948,
+        "min_ms": 5.607300000065152,
+        "max_ms": 23.351099999899816,
+        "mode": "dynamic_batch",
+        "concurrency": 1,
+        "max_batch_size": 8,
+        "max_queue_delay_ms": 1.0,
+        "num_requests": 64,
+        "mean_batch_size": 1.0,
+        "mean_compute_ms": 2.568271874988426,
+        "throughput_requests_per_sec": 75.18393338138182,
+        "target_sla_ms": 30.0,
+        "sla_met": true
+      },
+      {
+        "p50_ms": 14.76205000005848,
+        "p95_ms": 21.628399999917743,
+        "p99_ms": 21.95747899995922,
+        "mean_ms": 14.87564999999691,
+        "min_ms": 7.970299999897179,
+        "max_ms": 22.0372999999654,
+        "mode": "dynamic_batch",
+        "concurrency": 4,
+        "max_batch_size": 8,
+        "max_queue_delay_ms": 1.0,
+        "num_requests": 64,
+        "mean_batch_size": 4.0,
+        "mean_compute_ms": 7.771568750015945,
+        "throughput_requests_per_sec": 261.9931456044009,
+        "target_sla_ms": 30.0,
+        "sla_met": true
+      },
+      {
+        "p50_ms": 16.461400000025606,
+        "p95_ms": 22.995720000017172,
+        "p99_ms": 24.384482000023123,
+        "mean_ms": 17.053020312530975,
+        "min_ms": 8.918800000174087,
+        "max_ms": 25.15850000008868,
+        "mode": "dynamic_batch",
+        "concurrency": 8,
+        "max_batch_size": 8,
+        "max_queue_delay_ms": 1.0,
+        "num_requests": 64,
+        "mean_batch_size": 7.5,
+        "mean_compute_ms": 14.724418750020618,
+        "throughput_requests_per_sec": 410.79017415603175,
+        "target_sla_ms": 30.0,
+        "sla_met": true
+      }
+    ]
+  },
+  "closed_loop": {
+    "method": "predictive_entropy",
+    "score_source": "synthetic_logits",
+    "entropy_units": "nats",
+    "formula": "H(p) = -sum_i p_i log(p_i)",
+    "num_frames": 64,
+    "num_classes": 4,
+    "hard_fraction": 0.5,
+    "hard_frames": 32,
+    "easy_frames": 32,
+    "top_k_ratio": 0.1,
+    "triaged_count": 7,
+    "triaged_ratio": 0.109375,
+    "triaged_hard_count": 7,
+    "avg_uncertainty_score": 0.7185603011045595,
+    "avg_triaged_uncertainty": 1.3861224941319465,
+    "easy_mean_uncertainty": 0.0516969446421883,
+    "hard_mean_uncertainty": 1.3854236575669308,
+    "uncertainty_min": 0.051696944642188186,
+    "uncertainty_max": 1.386266502619059,
+    "queue_depth_after_dispatch": 7,
+    "entropy_self_check_passed": true,
+    "priority_order_verified": true,
+    "review_order": [
+      {
+        "frame_id": 19,
+        "uncertainty": 1.386266502619059,
+        "labeled_hard": true
+      },
+      {
+        "frame_id": 14,
+        "uncertainty": 1.3861806442755895,
+        "labeled_hard": true
+      },
+      {
+        "frame_id": 26,
+        "uncertainty": 1.3861746870919418,
+        "labeled_hard": true
+      },
+      {
+        "frame_id": 30,
+        "uncertainty": 1.3861504521794314,
+        "labeled_hard": true
+      },
+      {
+        "frame_id": 40,
+        "uncertainty": 1.3860837024581205,
+        "labeled_hard": true
+      },
+      {
+        "frame_id": 48,
+        "uncertainty": 1.3860398429815806,
+        "labeled_hard": true
+      },
+      {
+        "frame_id": 57,
+        "uncertainty": 1.3859616273179036,
+        "labeled_hard": true
+      }
+    ],
+    "model_mc_dropout": {
+      "mc_samples": 8,
+      "num_frames": 64,
+      "avg_uncertainty_score": 1.3760831051202955,
+      "uncertainty_min": 1.3734315619307793,
+      "uncertainty_max": 1.3781733317764926,
+      "uniform_ceiling_nats": 1.3862943611198906,
+      "note": "Monte Carlo dropout entropy of the untrained TinySurgicalNet on random inputs. Scores sit near the uniform ceiling because the network has not been fit to a task."
+    }
+  },
+  "notes": [
+    "Frames, requests, and logits are synthetic. This is a software benchmark, not a clinical validation and not a surgical device.",
+    "I/O timings compare unbuffered disk reads, memory-map slices, and in-RAM slices on a frame this process just wrote. The OS page cache may serve those reads.",
+    "Serving latency is measured on a local PyTorch model with a Triton-style dynamic batching policy. NVIDIA Triton and TensorRT were not executed.",
+    "The SLA check is P99 client latency against the configured budget (default 30 ms).",
+    "The review queue ranks a synthetic logit mix (peaked vs near-uniform) by predictive entropy. Monte Carlo dropout on the untrained network is reported separately and sits near the uniform ceiling."
+  ]
+}
