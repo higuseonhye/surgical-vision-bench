@@ -4,6 +4,12 @@ Synthetic benchmark for three bottlenecks in a surgical-vision pipeline: patch s
 
 The suite builds an 8192×8192 RGB frame in memory, times how patches are read, profiles a small PyTorch network under a single-instance dynamic batcher, and ranks frames by predictive entropy. It reads no clinical images and does not start NVIDIA Triton, TensorRT, or a robot. Numbers in [BENCHMARK_RESULTS.md](BENCHMARK_RESULTS.md) are one CPU run of this pipeline check.
 
+## Demo
+
+`streamlit run app.py` opens a local board for the same three measurements. The 30 ms line on that page is the CPU lab budget.
+
+![SurgFlow dashboard](docs/figures/surgflow_dashboard.png)
+
 ## Benchmark Visualizations
 
 | I/O Streaming Throughput | Dynamic Serving Latency (SLA Defense) |
