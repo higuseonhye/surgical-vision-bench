@@ -4,6 +4,14 @@ Synthetic benchmark for three bottlenecks in a surgical-vision pipeline: patch s
 
 The suite builds an 8192×8192 RGB frame in memory, times how patches are read, profiles a small PyTorch network under a single-instance dynamic batcher, and ranks frames by predictive entropy. It reads no clinical images and does not start NVIDIA Triton, TensorRT, or a robot. Numbers in [BENCHMARK_RESULTS.md](BENCHMARK_RESULTS.md) are one CPU run of this pipeline check.
 
+## Benchmark Visualizations
+
+| I/O Streaming Throughput | Dynamic Serving Latency (SLA Defense) |
+| :---: | :---: |
+| ![I/O Benchmark](docs/figures/io_throughput_benchmark.png) | ![Serving Latency](docs/figures/serving_latency_sla.png) |
+
+Regenerate the figures with `python generate_plots.py` after a new benchmark run. The chart values are the rounded results in `BENCHMARK_RESULTS.md`.
+
 ## Tracks
 
 | Track | Question | Primary metrics |
@@ -24,7 +32,7 @@ The top 10% go onto an in-process priority queue. Monte Carlo dropout on the unt
 
 ## Setup
 
-Python 3.10+ and the packages in `requirements.txt` (`numpy`, `torch`). A CPU wheel is enough.
+Python 3.10+ and the packages in `requirements.txt` (`numpy`, `torch`, and `matplotlib` for the charts). A CPU wheel is enough.
 
 ```bash
 python -m pip install -r requirements.txt
